@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.3.61"
 }
 
-group = "org.staffbase.brainfuck"
+group = "dev.timkante.interpreters"
 version = "1.0-SNAPSHOT"
 
 repositories {
