@@ -1,4 +1,10 @@
-.gradle
-.idea
-build/test-results
-build/reports
+# idea
+*.iml
+.idea/*
+!.idea/runConfigurations/
+!.idea/codeStyles/
+!.idea/gradle.xml
+
+# gradle
+build/
+.gradle/
