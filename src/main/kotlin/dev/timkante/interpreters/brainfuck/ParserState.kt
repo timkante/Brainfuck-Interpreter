@@ -1,8 +1,8 @@
 package dev.timkante.interpreters.brainfuck
 
 data class ParserState(val scope: Scope = Scope(), val stack: List<Scope> = listOf()) {
-    fun parseNext(token: Token): ParserState {
-        return when (token) {
+    fun parseNext(token: Token): ParserState =
+        when (token) {
             Token.INCREMENT -> copy(scope = Scope(commands = scope.commands + ModifyValue(delta = 1)))
             Token.DECREMENT -> copy(scope = Scope(commands = scope.commands + ModifyValue(delta = -1)))
             Token.SHIFT_RIGHT -> copy(scope = Scope(commands = scope.commands + ModifyPointer(delta = 1)))
@@ -16,7 +16,6 @@ data class ParserState(val scope: Scope = Scope(), val stack: List<Scope> = list
                 stack = stack.dropLast(1)
             )
         }
-    }
 
     fun finish(): Scope {
         check(stack.isEmpty()) { "missing closing bracket" }

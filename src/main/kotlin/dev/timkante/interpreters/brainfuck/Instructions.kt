@@ -25,19 +25,14 @@ object PrintValue : Command() {
 data class Scope(val commands: List<Command>) : Command() {
     constructor(vararg commands: Command) : this(commands.asList())
 
-    override fun invoke(oldMemoryState: MemoryState): MemoryState {
-        return commands.fold(oldMemoryState) { state, command -> command(state) }
-    }
+    override fun invoke(oldMemoryState: MemoryState): MemoryState =
+        commands.fold(oldMemoryState) { state, command -> command(state) }
 }
 
 data class Loop(val scope: Scope) : Command() {
     constructor(vararg commands: Command) : this(Scope(commands.asList()))
 
-    override tailrec fun invoke(memoryState: MemoryState): MemoryState {
-        if (memoryState.memory[memoryState.index] == 0) {
-            return memoryState
-        }
-
-        return invoke(scope(memoryState))
-    }
+    override tailrec fun invoke(memoryState: MemoryState): MemoryState =
+        if (memoryState.memory[memoryState.index] == 0) memoryState
+        else invoke(scope(memoryState))
 }
